@@ -1,0 +1,114 @@
+<html ng-app="missleApp">
+<head>
+
+	<title>IS-NOT Ohjestenseurantajärjestelmä</title>
+
+
+  <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  	
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/angular.min.js"></script>
+  <script src="/js/app.js"></script>
+  
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+	  #map {
+        height: 100%;
+      }
+
+      #map {
+        width:50%;
+        height: 70%;
+		margin: auto;
+		padding: 10px;
+      }
+	  
+	  #panel-heading {
+        text-align: center;
+      }
+    </style>
+      
+</head>
+<body id="MainWrap">
+
+  <div class="panel panel-default">
+    <div id="panel-heading">
+			<h1>TWIN-TURBO V8 Ohjustenseurantajärjestelmä</span></h1>
+		</div>
+		
+		<div class="panel-body" ng-controller="ThingListController">
+		
+		<div id="map"></div>
+		
+            <script>
+
+      function initMap() {
+        
+         //lat: {62.581204, lng: 29.839987 };
+          var latitude = new lat(document.getElementById('latitude'));
+          var longtitude = new lon(document.getElementById('longtitude'));
+          
+          var uluru = { lat: latitude, lng: longtitude };
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 15,
+          center: uluru,
+          mapTypeId: 'satellite'
+        });
+
+        var contentString = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">Missle Inpossible v0.2</h1>'+
+            '<div id="bodyContent">'+
+            '<p><b>Missle Inpossible</b>' +
+            '<p>Calculated missle lunch time is 14.10.2016 at three PM</p>' +
+            '<img border="0" align="left" width="256" heigth="256" src="http://scontent.cdninstagram.com/t51.2885-15/s480x480/e35/c100.0.759.759/13398933_258201847888132_1520885100_n.jpg?ig_cache_key=MTI3OTEyMDg1MjA2NTM1NDU2OQ%3D%3D.2.c">'
+            '</div>'+
+            '</div>';
+
+        var infowindow = new google.maps.InfoWindow({
+          content: contentString
+        });
+
+        var marker = new google.maps.Marker({
+          position: uluru,
+          map: map,
+          title: 'Uluru (Ayers Rock)'
+        });
+        marker.addListener('click', function() {
+          infowindow.open(map, marker);
+        });
+      }
+            </script>
+		
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDVGINKUsfW9JhpzYv_nhwvl8wvm1aJ3xg&callback=initMap"
+    async defer></script>
+	
+      <ul>
+        <li ng-repeat="missle in things">
+          <span>{{missle.name}}</span>
+          <p>{{missle.description}}</p>
+          <div id="latitude"><p>{{missle.lat}}</p></div>
+           <div id="longtitude"><p>{{missle.lon}}</p></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+  <div id="map"></div>
+  
+  <div ng-repeat="thing in things"></div>
+    
+
+</body>
+
+</html>
